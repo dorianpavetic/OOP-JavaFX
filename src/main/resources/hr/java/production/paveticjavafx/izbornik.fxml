@@ -30,6 +30,11 @@
                     <MenuItem mnemonicParsing="false" onAction="#showStoreSearchScreen" text="Search" />
                 </items>
             </Menu>
+            <Menu mnemonicParsing="false" text="Market">
+                <items>
+                    <MenuItem mnemonicParsing="false" onAction="#showMarketScreen" text="Market" />
+                </items>
+            </Menu>
         </menus>
     </MenuBar>
 </AnchorPane>

@@ -54,4 +54,16 @@ public class IzbornikController {
         HelloApplication.getStage().setScene(scene);
         HelloApplication.getStage().show();
     }
+
+    public void showMarketScreen() {
+        FXMLLoader fxmlLoader =
+                new FXMLLoader(HelloApplication.class.getResource( "market-screen.fxml"));
+        Scene scene = null;
+        try {
+            scene = new Scene(fxmlLoader.load(), 500, 500); } catch (IOException e) {
+            e.printStackTrace();
+        }
+        HelloApplication.getStage().setScene(scene);
+        HelloApplication.getStage().show();
+    }
 }
