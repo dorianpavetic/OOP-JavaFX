@@ -1,7 +1,5 @@
 package hr.java.production.paveticjavafx;
 
-import hr.java.production.paveticjavafx.main.Main;
-import hr.java.production.paveticjavafx.model.Category;
 import hr.java.production.paveticjavafx.model.Item;
 import hr.java.production.paveticjavafx.model.NamedEntity;
 import javafx.beans.property.SimpleStringProperty;
@@ -12,7 +10,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class ItemSearchController {
@@ -46,8 +44,6 @@ public class ItemSearchController {
     @FXML
     private TableColumn<Item, String> sellingPriceTableColumn;
 
-    public static List<Item> itemList = new ArrayList<>();
-
     @FXML
     public void initialize() {
         nameTableColumn.setCellValueFactory(stringCellDataFeatures ->
@@ -71,19 +67,14 @@ public class ItemSearchController {
         sellingPriceTableColumn.setCellValueFactory(stringCellDataFeatures ->
                 new SimpleStringProperty(stringCellDataFeatures.getValue().getSellingPrice().toString()));
 
-        Scanner scanner = new Scanner(System.in);
-        Category[] categories = Main.getCategoryInputs(scanner);
-        final List<Category> categoriesList = new ArrayList<>(Arrays.asList(categories));
-        Set<Item> items = Main.getItemInputs(scanner, categoriesList);
-
-        categoriesList.add(0, new Category("Any", ""));
-        categoryChoiceBox.setItems(FXCollections.observableList(categoriesList.stream().map(NamedEntity::getName).collect(Collectors.toList())));
+        final List<String> categoriesList = FirstScreenController.categoryList.stream()
+                .map(NamedEntity::getName)
+                .collect(Collectors.toList());
+        categoriesList.add(0, "Any");
+        categoryChoiceBox.setItems(FXCollections.observableList(categoriesList));
         categoryChoiceBox.setValue("Any");
 
-        itemList.clear();
-        itemList.addAll(items);
-
-        itemTableView.setItems(FXCollections.observableList(itemList));
+        itemTableView.setItems(FXCollections.observableList(FirstScreenController.itemList));
     }
 
     public void search() {
@@ -91,7 +82,7 @@ public class ItemSearchController {
         String categoryName = categoryChoiceBox.getValue();
 
         List<Item> results =
-                itemList
+                FirstScreenController.itemList
                         .stream()
                         .filter(item -> item.getName().toLowerCase().contains(itemName.toLowerCase()))
                         .collect(Collectors.toList());

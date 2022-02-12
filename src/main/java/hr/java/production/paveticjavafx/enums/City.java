@@ -2,11 +2,11 @@ package hr.java.production.paveticjavafx.enums;
 
 public enum City {
     ZAGREB("Zagreb", "10000"),
-    BEDEKOVCINA("Bedekovčina", "49221"),
+    BEDEKOVCINA("Bedekovcina", "49221"),
     ZABOK("Zabok", "49225"),
     SPLIT("Split", "48661"),
     PULA("Pula", "98772"),
-    VARAZDIN("Varaždin", "38992");
+    VARAZDIN("Varazdin", "38992");
 
 
     private final String cityName;

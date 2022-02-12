@@ -32,8 +32,6 @@ public class FactorySearchController {
     @FXML
     private TableColumn<Factory, String> itemsTableColumn;
 
-    public static List<Factory> factoryList = new ArrayList<>();
-
     @FXML
     public void initialize() {
         nameTableColumn.setCellValueFactory(stringCellDataFeatures ->
@@ -48,23 +46,14 @@ public class FactorySearchController {
             return new SimpleStringProperty(namesString.substring(1, namesString.length()-1));
         });
 
-        Scanner scanner = new Scanner(System.in);
-        Category[] categories = Main.getCategoryInputs(scanner);
-        final List<Category> categoriesList = new ArrayList<>(Arrays.asList(categories));
-        Set<Item> items = Main.getItemInputs(scanner, categoriesList);
-        Factory[] factories = Main.getFactoryInputs(scanner, items);
-
-        factoryList.clear();
-        factoryList.addAll(Arrays.asList(factories));
-
-        factoryTableView.setItems(FXCollections.observableList(factoryList));
+        factoryTableView.setItems(FXCollections.observableList(FirstScreenController.factoryList));
     }
 
     public void search() {
         String factoryName = factoryNameTextField.getText();
 
         List<Factory> results =
-                factoryList
+                FirstScreenController.factoryList
                         .stream()
                         .filter(factory -> factory.getName().toLowerCase().contains(factoryName.toLowerCase()))
                         .collect(Collectors.toList());
